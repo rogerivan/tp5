@@ -4,26 +4,17 @@ import excepciones.ButacaNoEncontradaException;
 import excepciones.ContraseniaNoEncontradaException;
 import groovy.transform.TupleConstructor;
 
-@TupleConstructor
 class Noche {
-
+	
 	def fecha
 	def butacas = [] as Set
 	def bandas = [] as Set
 	def butacasReservadas = [] as Set
-
+	
 	/*
 	 Metodos de butacas no reservadas
 	 */
-
-	def buscarPrimeraButacaDisponible(){
-
-		if (this.butacas.first() == null)
-			throw new ButacaNoEncontradaException()
-		else
-			this.butacas.first()
-	}
-
+	
 	def agregarButacaNoReservada(butaca){
 
 		this.butacas << butaca
@@ -36,10 +27,10 @@ class Noche {
 			throw new ButacaNoEncontradaException()
 	}
 
-	def buscarButaca(butaca){
+	def esButacaDisponible(butaca){
 		this.butacas.any{it = butaca}
 	}
-
+	
 	/*
 	 Metodos para bandas
 	 */
@@ -65,6 +56,10 @@ class Noche {
 		this.bandas << banda
 	}
 	
+	/*
+	 Metodos Butacas Reservadas
+	 */
+	
 	def buscarButacaReservada(butaca, contrasenia){
 		def butacaEncontrada = this.butacasReservadas.find{ it == butaca }
 		if(butacaEncontrada.contrasenia == contrasenia)
@@ -74,7 +69,7 @@ class Noche {
 	}
 
 	def sacarButacaReservada(butaca){
-		this.butacasReservadas - butaca
+		this.butacasReservadas.removeAll{it == butaca}
 	}
 
 	def desbloquearButaca(butaca, contrasenia){
