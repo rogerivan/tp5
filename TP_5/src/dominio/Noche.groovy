@@ -12,6 +12,15 @@ class Noche {
 	def butacasReservadas = [] as Set
 	
 	/*
+	 Metodo Constructor
+	 */
+	def Noche(fecha,butacas,bandas){
+		this.fecha = fecha
+		this.butacas.addAll(butacas)
+		this.bandas.addAll(bandas)
+	}
+	
+	/*
 	 Metodos de butacas no reservadas
 	 */
 	
@@ -21,14 +30,11 @@ class Noche {
 	}
 
 	def sacarButacaNoReservada(butaca){
-		if (this.buscarButaca(butaca))
-			this.butacas.removeAll{it == butaca}
-		else
-			throw new ButacaNoEncontradaException()
+		this.butacas.removeAll{it == butaca}
 	}
 
 	def esButacaDisponible(butaca){
-		this.butacas.any{it = butaca}
+		this.butacas.any{it == butaca}
 	}
 	
 	/*

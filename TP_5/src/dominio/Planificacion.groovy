@@ -21,7 +21,7 @@ class Planificacion {
 	
 	//Este metodo verifica que para todas las noches la butaca seleccionada, este disponible [entrada VIP]
 	def buscarButacaEnTodasLasNoches(butaca){
-		def nochesQuePoseenButaca = this.nochesConcierto.findAll{ it.buscarButaca(butaca) == true }
+		def nochesQuePoseenButaca = this.nochesConcierto.findAll{ it.esButacaDisponible(butaca) == true }
 		if ( nochesQuePoseenButaca.size() == this.nochesConcierto.size() )
 			true
 		else
@@ -41,23 +41,17 @@ class Planificacion {
 	 */
 
 	def verificarDisponibilidadButacas(noches,butacas){
-		def butacasAux = butacas
-		
-		noches.each{
-			def butaca = butacasAux.pop()
-		
-			if( it.size() == 1){
-				if( !it.esButacaDisponible( butaca.first() ) )
-					throw new ButacaNoEncontradaException()
-				else
-					true
-			}
-			else{
-				if( !it.buscarButacaEnTodasLasNoches( butaca.first() ) )
-					throw new ButacaNoEncontradaException()
-				else
-					true
-			}
+		if( noches.size() == 1){
+			if( !noches.first().esButacaDisponible( butacas.first() ) )
+				false
+			else
+				true
+		}
+		else{
+			if( !noches.first().buscarButacaEnTodasLasNoches( butacas.first() ) )
+				false
+			else
+				true
 		}
 	}
 	
@@ -66,21 +60,31 @@ class Planificacion {
 	//que funcionen como pilas -> hay correspondencia en el orden de las noches
 	//las butacas y los espectadores. Estamos trabajando con un sublistado de noches
 	//y butacas copia de los listados originales.
-	def comprarEntradas(noches, butacas, espectadores,comprador, medioDePago){
-		if( verificarDisponibilidadButacas(noches, butacas) ){
-			def compra = new Compra(new Date())
-			noches.each{
-				this.generarEntrada(it,butacas.pop(), comprador, espectadores.pop(), compra)
+	def comprarEntradas(noches, butacas, espectadores, comprador, medioDePago){
+		def butacasAux = []
+		butacasAux.addAll(butacas)
+		def compra = new Compra(new Date())
+		
+		noches.each{
+			if ( this.verificarDisponibilidadButacas( it, butacasAux.pop() ) )
+				compra.entradasCompradas << this.generarEntrada(it, butacas.pop(), comprador, espectadores.pop())
+			else{
+				compra.entradasCompradas.each{
+					it.deshacerCompra()
+				}
+				throw new ButacaNoEncontradaException()
 			}
+		}
+		
+		if ( compra.entradasCompradas != null ){
 			this.aplicarDescuentos(compra)
 			medioDePago.efectuarPago(compra, comprador)
 			comprador.agregarCompra(compra)
 		}
 	}
 	
-	def generarEntrada(noches, butacas, comprador, espectador, compra){
+	def generarEntrada(noches, butacas, comprador, espectador){
 		def entrada = new Entrada(noches, butacas, comprador, espectador)
-		compra.entradasCompradas << entrada
 		noches.each{
 			it.sacarButacaNoReservada( butacas.first() )
 		}

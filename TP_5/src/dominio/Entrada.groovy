@@ -43,7 +43,9 @@ class Entrada {
 	}
 	
 	def deshacerCompra(){
-		noches.each{ it.agregarButacaNoReservada(butacas.pop)}
+		noches.each{
+			it.agregarButacaNoReservada(butacas.pop())
+		}
 	}
 	
 }
