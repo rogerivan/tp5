@@ -23,8 +23,4 @@ class Comprador {
 		this.compras << compra
 	}
 	
-	//TODO va aca?
-	def efectuarPago(compra, medioDePago){
-		compra.efectuarPago(this, medioDePago)
-	}
 }

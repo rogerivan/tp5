@@ -66,13 +66,14 @@ class Planificacion {
 	//que funcionen como pilas -> hay correspondencia en el orden de las noches
 	//las butacas y los espectadores. Estamos trabajando con un sublistado de noches
 	//y butacas copia de los listados originales.
-	def comprarEntradas(noches, butacas, espectadores,comprador){
+	def comprarEntradas(noches, butacas, espectadores,comprador, medioDePago){
 		if( verificarDisponibilidadButacas(noches, butacas) ){
 			def compra = new Compra(new Date())
 			noches.each{
 				this.generarEntrada(it,butacas.pop(), comprador, espectadores.pop(), compra)
 			}
 			this.aplicarDescuentos(compra)
+			medioDePago.efectuarPago(compra, comprador)
 			comprador.agregarCompra(compra)
 		}
 	}

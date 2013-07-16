@@ -4,6 +4,6 @@ package mediosDePago
 class Efectivo implements MedioDePago{
 	
 	@Override
-	def efectuarPago( compra, comprador) {}
+	def efectuarPago(compra, comprador) {}
 
 }
