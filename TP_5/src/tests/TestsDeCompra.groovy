@@ -86,7 +86,7 @@ class TestsDeCompra {
 	
 	@Test
 	void probarMetodoComprarEntradasParaEntradasEnCombo(){
-		planificacion.comprarEntradas([[noche1],[noche2]], [[butaca1],[butaca1]], [[espectador1],[espectador1]], comprador, efectivo)
+		planificacion.comprarEntradas([[noche1],[noche2]], [[butaca1],[butaca2]], [[espectador1],[espectador1]], comprador, efectivo)
 		def compras = comprador.compras
 		//Verifica que sea una sola compra
 		assert( compras.size() == 1 )
@@ -97,10 +97,45 @@ class TestsDeCompra {
 		def entrada2 = entradas.last()
 		//Verifica que las entradas fueron generadas con las noches y la butacas solicitadas
 		assert( entrada1.noches == [noche1] && entrada1.butacas == [butaca1] 
-			 && entrada2.noches == [noche2] && entrada2.butacas == [butaca1])
+			 && entrada2.noches == [noche2] && entrada2.butacas == [butaca2])
 		//Verifica en planificacion que en las noches solicitadas las butacas hayan sido vendidas
 		assert(!planificacion.nochesConcierto.any{ it == noche1 && it.butacas.any{ it == butaca1 } })
-		assert(!planificacion.nochesConcierto.any{ it == noche2 && it.butacas.any{ it == butaca1 } })
+		assert(!planificacion.nochesConcierto.any{ it == noche2 && it.butacas.any{ it == butaca2 } })
+	}
+	
+	@Test
+	void probarMetodoComprarEntradasParaEntradaVIP(){
+		planificacion.comprarEntradas([[noche1,noche2]], [[butaca1,butaca1]], [[espectador1]], comprador, efectivo)
+		def compras = comprador.compras
+		//Verifica que sea una sola compra
+		assert( compras.size() == 1 )
+		def entradas = compras.first().entradasCompradas
+		//Verifica que sea una sola entrada
+		assert( entradas.size() == 1 )
+		def entrada = entradas.first()
+		//Verifica que la entrada fue generada con las noches y la butaca solicitada
+		assert( entrada.noches == [noche1, noche2] && entrada.butacas == [butaca1, butaca1] )
+		//Verifica en planificacion que en las noches solicitada la butaca haya sido vendida
+		assert(!planificacion.nochesConcierto.any{ it.butacas.any{ it == butaca1 } })
+	}
+	
+	@Test
+	void probarMetodoComprarEntradasParaEntradasEnComboVipYComun(){
+		planificacion.comprarEntradas([[noche1,noche2], [noche1]], [[butaca1,butaca1], [butaca2]], [[espectador1], [espectador1]], comprador, efectivo)
+		def compras = comprador.compras
+		//Verifica que sea una sola compra
+		assert( compras.size() == 1 )
+		def entradas = compras.first().entradasCompradas
+		//Verifica que sea una sola entrada
+		assert( entradas.size() == 2 )
+		def entrada1 = entradas.first()
+		def entrada2 = entradas.last()
+		//Verifica que la entrada fue generada con las noches y la butaca solicitada
+		assert( entrada1.noches == [noche1, noche2] && entrada1.butacas == [butaca1, butaca1] 
+			 && entrada2.noches == [noche1] && entrada2.butacas == [butaca2] )
+		//Verifica en planificacion que en las noches solicitadas que queden las butacas restantes
+		assert(planificacion.nochesConcierto.any{ it == noche2 && it.butacas.any{ it == butaca2 } })
+		assert(planificacion.nochesConcierto.any{ it == noche1 && it.butacas.size() == 0 })
 	}
 		
 }

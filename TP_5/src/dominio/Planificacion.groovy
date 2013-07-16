@@ -41,14 +41,15 @@ class Planificacion {
 	 */
 
 	def verificarDisponibilidadButacas(noches,butacas){
+		def butaca = butacas.first()
 		if( noches.size() == 1){
-			if( !noches.first().esButacaDisponible( butacas.first() ) )
+			if( !noches.first().esButacaDisponible( butaca ) )
 				false
 			else
 				true
 		}
 		else{
-			if( !noches.first().buscarButacaEnTodasLasNoches( butacas.first() ) )
+			if( !this.buscarButacaEnTodasLasNoches( butaca ) )
 				false
 			else
 				true
@@ -66,8 +67,12 @@ class Planificacion {
 		def compra = new Compra(new Date())
 		
 		noches.each{
-			if ( this.verificarDisponibilidadButacas( it, butacasAux.pop() ) )
-				compra.entradasCompradas << this.generarEntrada(it, butacas.pop(), comprador, espectadores.pop())
+			if ( this.verificarDisponibilidadButacas( it, butacasAux.first() ) ){
+				butacasAux.remove(butacas.head())
+				compra.entradasCompradas << this.generarEntrada( it, butacas.first(), comprador, espectadores.first() )
+				butacas.remove( butacas.head() )
+				espectadores.remove( espectadores.first() )
+			}
 			else{
 				compra.entradasCompradas.each{
 					it.deshacerCompra()
