@@ -94,8 +94,13 @@ class TestsDeCompra {
 		//Verifica que sean dos entradas
 		assert( entradas.size() == 2 )
 		def entrada1 = entradas.first()
-		def entrada2 = entradas.first()
-		
+		def entrada2 = entradas.last()
+		//Verifica que las entradas fueron generadas con las noches y la butacas solicitadas
+		assert( entrada1.noches == [noche1] && entrada1.butacas == [butaca1] 
+			 && entrada2.noches == [noche2] && entrada2.butacas == [butaca1])
+		//Verifica en planificacion que en las noches solicitadas las butacas hayan sido vendidas
+		assert(!planificacion.nochesConcierto.any{ it == noche1 && it.butacas.any{ it == butaca1 } })
+		assert(!planificacion.nochesConcierto.any{ it == noche2 && it.butacas.any{ it == butaca1 } })
 	}
 		
 }
