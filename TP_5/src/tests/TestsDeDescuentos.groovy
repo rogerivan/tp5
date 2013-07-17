@@ -188,7 +188,6 @@ class TestsDeDescuentos {
 		planificacion.aplicarDescuentos(compra)
 		//El descuento del 10% del subtotal de la compra es 1303*0.1 = 130.3, se aplica este descuento debido
 		//a que el subtotal de la compra supera los 1000
-		//def entrada = compra.entradasCompradas.find{ it.espectador.edad == 11 }
 		assert ( compra.descuento == 130.3 )
 	}
 }
