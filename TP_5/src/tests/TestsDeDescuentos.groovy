@@ -161,5 +161,34 @@ class TestsDeDescuentos {
 		assert ( entrada.descuentosAcumulados == 151.5 )
 	}
 	
+	@Test
+	void verficarAdicionalEntradaVip(){
+		def compra = new Compra( Date.parse( "yyyy-MM-dd", "2013-11-01" ) )
+		compra.entradasCompradas << new Entrada( [noche1, noche2], [butaca1, butaca1], comprador, espectadorMayor )
+		//Luego de haber realizado la compra el valor base de la butaca por cada noche es 200*3*2=1200
+		//y el valor adicional de la banda de esa fecha es de 200*2 = 400 => total sin descuento = 1600
+		planificacion.aplicarDescuentos(compra)
+		//El valor adicional del 50% del subtotal de la entrada es 1600*0.5 = 800
+		def entrada = compra.entradasCompradas.first()
+		assert ( entrada.descuentosAcumulados == -800 )
+	}
 	
+	@Test
+	void verficarDescuentoCompraCombo(){
+		def compra = new Compra( Date.parse( "yyyy-MM-dd", "2013-11-01" ) )
+		compra.entradasCompradas << new Entrada( [noche1], [butaca1], comprador, espectadorMayor )
+		compra.entradasCompradas << new Entrada( [noche2], [butaca2], comprador, espectadorMayor )
+		//Entrada noche 1:
+		//Luego de haber realizado la compra el valor base de la butaca es 200*3=600
+		//y el valor adicional de la banda de esa fecha es de 200 => total sin descuento = 800
+		//Entrada noche 2:
+		//Luego de haber realizado la compra el valor base de la butaca es 101*3=303
+		//y el valor adicional de la banda de esa fecha es de 200 => total sin descuento = 503
+		//Subtotal de compra = 1303
+		planificacion.aplicarDescuentos(compra)
+		//El descuento del 10% del subtotal de la compra es 1303*0.1 = 130.3, se aplica este descuento debido
+		//a que el subtotal de la compra supera los 1000
+		//def entrada = compra.entradasCompradas.find{ it.espectador.edad == 11 }
+		assert ( compra.descuento == 130.3 )
+	}
 }
