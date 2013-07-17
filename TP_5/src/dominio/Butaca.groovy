@@ -25,7 +25,7 @@ class Butaca {
 	
 	def desbloquearButaca(contrasenia){
 		if(this.contrasenia == contrasenia)
-			contrasenia = null
+			this.contrasenia = null
 		else
 			throw new ContraseniaNoCoincideException()
 	}

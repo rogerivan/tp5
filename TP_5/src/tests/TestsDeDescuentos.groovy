@@ -23,6 +23,7 @@ class TestsDeDescuentos {
 	def ubicacion2
 	def ubicacion3
 	
+	def butacasReservadas = []
 	def butacas = []
 	def butaca1
 	def butaca2

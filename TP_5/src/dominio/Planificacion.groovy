@@ -104,7 +104,7 @@ class Planificacion {
 	//ACLARACION 2: al generar las entradas reservadas no se incluye la contraseña porque
 	//las mismas no se pueden cancelar en ningun momento una vez generadas.
 	
-	def generarEntradaReservada(noche, butaca, contrasenia){
+	def generarEntradaReservada(noche, butaca, espectadores, contrasenia, comprador){
 		if( noche.buscarButacaReservada(butaca, contrasenia) ){
 			noche.desbloquearButaca(butaca, contrasenia)
 			def entrada = new Entrada(butaca, noche, comprador, espectadores.pop())
@@ -114,7 +114,7 @@ class Planificacion {
 	def comprarEntradasReservadas(noche, butacasReservadas, espectadores, contrasenia, comprador){
 		def compra = new Compra(new Date())
 		butacasReservadas.each{
-			compra.entradasEspeciales << this.generarEntradaReservada(noche, it, this, espectadores, contrasenia)
+			compra.entradasEspeciales << this.generarEntradaReservada(noche, it, espectadores, contrasenia, comprador)
 		}
 		comprador.agregarCompra(compra)
 	}
