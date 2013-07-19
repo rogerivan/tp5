@@ -25,12 +25,12 @@ class Tarjeta implements MedioDePago{
 		catch(NoHayConexionException e){
 			//Registrar un pago pendiente en el sistema
 			this.logsPagosPendientes << new Log(new Date(), compra, comprador, this.numero)
-			throw new NoHayConexionException()
+			throw e
 		}
 		catch(ValidacionDeDatosException e2){
 			//Deshacer la compra, osea la/s butaca/s pasa/n a estar disponible/s otra vez
 			compra.entradasCompradas.each{it.deshacerCompra}
-			throw new ValidacionDeDatosException()
+			throw e
 		}
 	}
 }
