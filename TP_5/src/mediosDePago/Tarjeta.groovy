@@ -6,12 +6,15 @@ import dominio.Log
 
 import excepciones.*
 
+
+//FIXME no hay tests para este medio de pago, pero me intersaría que los hubiera
 class Tarjeta implements MedioDePago{
 
 	def paymentGateway
 	def numero
 	def logsPagosPendientes = [] as Set
 	
+	//FIXME no están inyectando al paymentGateway en este constructor
 	def Tarjeta(numero, paymentGateway){
 		this.numero = numero
 	}
