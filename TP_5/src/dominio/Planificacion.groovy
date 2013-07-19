@@ -21,7 +21,9 @@ class Planificacion {
 	
 	//Este metodo verifica que para todas las noches la butaca seleccionada, este disponible [entrada VIP]
 	def buscarButacaEnTodasLasNoches(butaca){
+		//FIXME no hagan condicion == true!!!
 		def nochesQuePoseenButaca = this.nochesConcierto.findAll{ it.esButacaDisponible(butaca) == true }
+		//FIXME no hagan if condicion return true else return false!!!!!
 		if ( nochesQuePoseenButaca.size() == this.nochesConcierto.size() )
 			true
 		else
