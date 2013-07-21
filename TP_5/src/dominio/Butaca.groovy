@@ -25,7 +25,7 @@ class Butaca {
 	
 	def desbloquearButaca(contrasenia){
 		if(this.contrasenia == contrasenia)
-			this.contrasenia = null
+			this.contrasenia = null //FIXME porqué lo setean en null? Que pasaría si deshacen la compra?
 		else
 			throw new ContraseniaNoCoincideException()
 	}
