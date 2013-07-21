@@ -17,6 +17,7 @@ class Tarjeta implements MedioDePago{
 	//FIXME no están inyectando al paymentGateway en este constructor
 	def Tarjeta(numero, paymentGateway){
 		this.numero = numero
+		this.paymentGateway = paymentGateway
 	}
 	
 	@Override
@@ -32,8 +33,8 @@ class Tarjeta implements MedioDePago{
 		}
 		catch(ValidacionDeDatosException e2){
 			//Deshacer la compra, osea la/s butaca/s pasa/n a estar disponible/s otra vez
-			compra.entradasCompradas.each{it.deshacerCompra}
-			throw e
+			compra.deshacerCompra()
+			throw e2
 		}
 	}
 }

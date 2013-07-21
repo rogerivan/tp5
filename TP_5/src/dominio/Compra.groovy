@@ -20,4 +20,9 @@ class Compra {
 		precioTotal
 	}
 	
+	def deshacerCompra(){
+		entradasCompradas.each{it.deshacerCompra()}
+		entradasCompradas = []
+	}
+	
 }
