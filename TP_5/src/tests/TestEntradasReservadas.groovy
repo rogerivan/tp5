@@ -80,9 +80,7 @@ class TestEntradasReservadas {
 	@Test
 	void testDesbloquearButaca(){
 		noche.reservarButaca(butaca1, contrasenia)
-		noche.desbloquearButaca(butaca1, contrasenia)
-		//Verifica que la butaca ya no tenga contraseña
-		assert (butaca1.getContrasenia() == null)
+		noche.desbloquearButaca(butaca1, contrasenia)		
 		//Verifica que la butaca este con las no reservadas
 		assert(noche.butacas.any{it == butaca1})
 		//Verifica que la butaca no este mas con las reservadas

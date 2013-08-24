@@ -87,10 +87,7 @@ class Noche {
 	// los errores a los niveles superiores, entonces las excepciones son un mejor mencanismo porque por defecto
 	// "burbujean". Yo veo que éste es el caso.  
 	def buscarButacaReservada(butaca, contrasenia){
-		if(butacasReservadas.find{ it.contrasenia == contrasenia })
-			true
-		else
-			throw new ButacaNoEncontradaException()
+		return butacasReservadas.find{ it.contrasenia == contrasenia }//Devuelvo la butaca encontrada o null si no la encuentra
 	}
 
 	def sacarButacaReservada(butaca){
@@ -98,7 +95,7 @@ class Noche {
 	}
 
 	def desbloquearButaca(butaca, contrasenia){
-		if (this.buscarButacaReservada(butaca, contrasenia)){
+		if (this.buscarButacaReservada(butaca, contrasenia) != null){//Encontro la butaca cuya contrasenia coincide
 			butaca.desbloquearButaca(contrasenia)
 			this.agregarButacaNoReservada(butaca)
 			this.sacarButacaReservada(butaca)
