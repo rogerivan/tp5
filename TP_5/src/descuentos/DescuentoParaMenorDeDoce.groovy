@@ -2,19 +2,15 @@ package descuentos
 
 
 class DescuentoParaMenorDeDoce extends Descuento{
-	
-	//FIXME no ven lógica repetida entre todos los descuentos?
-	//la mayoría de ellos tienen la forma:
-	//	compra.entradasCompradas.each{
-	//		if ( ... se cumple alguna condicion ....)
-	//			it.descuentosAcumulados +/-=.....el descuento propiamente dicho...
-	//	}
+			
 	@Override
-	def aplicarDescuento(compra){
-		compra.entradasCompradas.each{
-			if ( it.espectador.edad < 12 && this.hayAlgunEspectadorMayor(compra.entradasCompradas, it.noches) )
-				it.descuentosAcumulados += calcularDescuento(it.butacas.first())
-		}
+	def cumpleCondicion(def entrada, def compra) {
+		return (entrada.espectador.edad < 12 && this.hayAlgunEspectadorMayor(compra.entradasCompradas, entrada.noches))
+	}
+	
+	@Override
+	def registrarDescuento(def entrada, def compra) {
+		entrada.descuentosAcumulados += calcularDescuento(entrada.butacas.first())
 	}
 	
 	def hayAlgunEspectadorMayor(entradasCompradas, noches){

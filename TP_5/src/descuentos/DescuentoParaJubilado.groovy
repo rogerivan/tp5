@@ -4,13 +4,15 @@ package descuentos
 class DescuentoParaJubilado extends Descuento{
 	
 	@Override
-	def aplicarDescuento(compra){
-		compra.entradasCompradas.each{
-			if(it.espectador.edad > 65)
-				it.descuentosAcumulados += calcularDescuento(it.butacas.first())
-		}
-	}	
-
+	def cumpleCondicion(def entrada, def compra) {
+		return (entrada.espectador.edad > 65)
+	}
+	
+	@Override
+	def registrarDescuento(def entrada, def compra) {
+		entrada.descuentosAcumulados += calcularDescuento(entrada.butacas.first())
+	}
+	
 	def calcularDescuento(butaca){
 		butaca.getPrecioBase() * this.descuento
 	}

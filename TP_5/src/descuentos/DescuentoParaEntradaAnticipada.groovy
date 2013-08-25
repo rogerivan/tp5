@@ -3,15 +3,16 @@ package descuentos
 import groovy.time.TimeCategory
 
 class DescuentoParaEntradaAnticipada extends Descuento{
-
+	
 	@Override
-	def aplicarDescuento(compra) {
-		compra.entradasCompradas.each{
-			def fechaRecital = this.getPrimeraFechaDelRecital(it)
-			if ( (fechaRecital - compra.fechaCompra) >= 30 ){
-				it.descuentosAcumulados += it.getPrecioSinDescuento() * this.getDescuentoCombo()
-			}
-		}
+	def cumpleCondicion(def entrada, def compra) {
+		def fechaRecital = this.getPrimeraFechaDelRecital(entrada)
+		return ((fechaRecital - compra.fechaCompra) >= 30)
+	}
+	
+	@Override
+	def registrarDescuento(def entrada, def compra) {
+		entrada.descuentosAcumulados += entrada.getPrecioSinDescuento() * this.getDescuentoCombo()
 	}
 	
 	def getPrimeraFechaDelRecital(entrada){
