@@ -44,15 +44,17 @@ class TestsDeDescuentos {
 	
 	def totalEntradasAlInicio
 	
+	enum Sexo { Femenino, Masculino }
+	
 	@Before
 	void inicializar(){
 		comprador = new Comprador("Testa", "Ferro")
-		
-		espectadorJubilado = new Espectador("Martin", "Ramirez", 67, "Masculino")
-		espectador12_18 = new Espectador("Diego", "Gonzalez", 17, "Masculino")
-		espectadora = new Espectador("Julieta", "Diaz", 23, "Femenino")
-		espectadorMayor = new Espectador("Roger", "Rodriguez", 24, "Masculino")
-		espectadorMenor12 = new Espectador("Jonas", "Castillo", 11, "Masculino")
+				
+		espectadorJubilado = new Espectador("Martin", "Ramirez", 67, Sexo.Masculino)
+		espectador12_18 = new Espectador("Diego", "Gonzalez", 17, Sexo.Masculino)
+		espectadora = new Espectador("Julieta", "Diaz", 23, Sexo.Femenino)
+		espectadorMayor = new Espectador("Roger", "Rodriguez", 24, Sexo.Masculino)
+		espectadorMenor12 = new Espectador("Jonas", "Castillo", 11, Sexo.Masculino)
 		
 		ubicacion1 = new Ubicacion("azul", 200)
 		ubicacion2 = new Ubicacion("rosa", 101)
@@ -117,7 +119,7 @@ class TestsDeDescuentos {
 		assert ( entrada.descuentosAcumulados == 120 )
 	}
 	
-	@Test
+	@Test //Rompe por que no compara bien los enum de Sexo. No se como solucionarlo
 	void verficarDescuentoParaDama(){
 		def compra = new Compra( Date.parse( "yyyy-MM-dd", "2013-11-01" ) )
 		compra.entradasCompradas << new Entrada( [noche1], [butaca1], comprador, espectadora )

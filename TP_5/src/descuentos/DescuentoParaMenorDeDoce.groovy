@@ -10,7 +10,7 @@ class DescuentoParaMenorDeDoce extends Descuento{
 	//			it.descuentosAcumulados +/-=.....el descuento propiamente dicho...
 	//	}
 	@Override
-	def getDescuento(compra){
+	def aplicarDescuento(compra){
 		compra.entradasCompradas.each{
 			if ( it.espectador.edad < 12 && this.hayAlgunEspectadorMayor(compra.entradasCompradas, it.noches) )
 				it.descuentosAcumulados += calcularDescuento(it.butacas.first())

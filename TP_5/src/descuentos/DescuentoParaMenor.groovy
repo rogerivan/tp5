@@ -3,7 +3,7 @@ package descuentos
 
 class DescuentoParaMenor extends Descuento{
 	@Override
-	def getDescuento(compra){
+	def aplicarDescuento(compra){
 		compra.entradasCompradas.each{
 			if (it.espectador.edad >= 12 && it.espectador.edad < 18)
 				it.descuentosAcumulados += calcularDescuento(it.butacas.first())

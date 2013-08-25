@@ -5,7 +5,7 @@ import groovy.time.TimeCategory
 class DescuentoParaEntradaAnticipada extends Descuento{
 
 	@Override
-	def getDescuento(compra) {
+	def aplicarDescuento(compra) {
 		compra.entradasCompradas.each{
 			def fechaRecital = this.getPrimeraFechaDelRecital(it)
 			if ( (fechaRecital - compra.fechaCompra) >= 30 ){

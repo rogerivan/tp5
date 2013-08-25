@@ -4,6 +4,7 @@ package descuentos
 class DescuentoParaDama extends Descuento{
 	def totalEntradasFestival
 	def entradasCompradasPorDamas
+	enum Sex{ Femenino }
 	
 	def DescuentoParaDama(totalEntradasFestival){
 		this.totalEntradasFestival = totalEntradasFestival
@@ -11,15 +12,15 @@ class DescuentoParaDama extends Descuento{
 	}
 	
 	@Override
-	def getDescuento(compra){
+	def aplicarDescuento(compra){
 		compra.entradasCompradas.each{
 			//FIXME no es una buena idea modelar valores enumerados que no tengan comportamiento
 			//de dominio usando strings o números, porque es fácil equivocarse al tipear y que nada funcione
 			//o intentar comparar contra valores que no pertenecen a la enumeración (Esto último es más util
 			//en lenguajes con tipado estático)
 			//Recomiendo para tales casos usar enums. Por ejemplo, podrían 
-			//Definir un enum Sexo con valores MASCULINO, FEMENINO y cualquier otra cosa que se les ocurra :P 
-			if( this.porcentajeEntradasCompradasPorDamas() <= 0.2 && it.espectador.sexo == "Femenino"){
+			//Definir un enum Sexo con valores MASCULINO, FEMENINO y cualquier otra cosa que se les ocurra :P 						
+			if( this.porcentajeEntradasCompradasPorDamas() <= 0.2 && it.espectador.sexo.equals( Sex.Femenino)){
 				this.entradasCompradasPorDamas ++
 				it.descuentosAcumulados += calcularDescuento(it.butacas.first())
 			}

@@ -4,7 +4,7 @@ package descuentos
 class AdicionalParaEntradaVIP extends Descuento{
 
 	@Override
-	def getDescuento(compra) {
+	def aplicarDescuento(compra) {
 		compra.entradasCompradas.each{
 			if ( it.noches.size() > 1 ){
 				it.descuentosAcumulados -= it.getPrecioSinDescuento() * this.getDescuentoCombo()

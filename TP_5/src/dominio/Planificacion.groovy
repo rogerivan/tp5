@@ -31,7 +31,7 @@ class Planificacion {
 	 * Metodos de descuentos
 	 */
 	def aplicarDescuentos(compra){
-		this.descuentosAplicables.each{ it.getDescuento(compra) }
+		this.descuentosAplicables.each{ it.aplicarDescuento(compra) }
 		
 	}
 	

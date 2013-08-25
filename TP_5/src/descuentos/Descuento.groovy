@@ -10,6 +10,6 @@ abstract class Descuento {
 	//sino que tiene un efecto. Lo cual no está mal, pero el nombre del método
 	//no es representativo, porque diera a entender que va a retornar ese valor.
 	//aplicarDescuento podría ser un mejor nombre
-	abstract getDescuento(compra)
+	abstract aplicarDescuento(compra)
 
 }
