@@ -119,7 +119,7 @@ class TestsDeDescuentos {
 		assert ( entrada.descuentosAcumulados == 120 )
 	}
 	
-	@Test //Rompe por que no compara bien los enum de Sexo. No se como solucionarlo
+	@Test 
 	void verficarDescuentoParaDama(){
 		def compra = new Compra( Date.parse( "yyyy-MM-dd", "2013-11-01" ) )
 		compra.entradasCompradas << new Entrada( [noche1], [butaca1], comprador, espectadora )

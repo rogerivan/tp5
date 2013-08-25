@@ -1,10 +1,12 @@
 package descuentos
 
+import tests.TestsDeDescuentos.Sexo;
+
 
 class DescuentoParaDama extends Descuento{
 	def totalEntradasFestival
 	def entradasCompradasPorDamas
-	enum Sex{ Femenino }
+	enum Sexo{ Femenino }
 	
 	def DescuentoParaDama(totalEntradasFestival){
 		this.totalEntradasFestival = totalEntradasFestival
@@ -20,7 +22,7 @@ class DescuentoParaDama extends Descuento{
 			//en lenguajes con tipado estático)
 			//Recomiendo para tales casos usar enums. Por ejemplo, podrían 
 			//Definir un enum Sexo con valores MASCULINO, FEMENINO y cualquier otra cosa que se les ocurra :P 						
-			if( this.porcentajeEntradasCompradasPorDamas() <= 0.2 && it.espectador.sexo.equals( Sex.Femenino)){
+			if( this.porcentajeEntradasCompradasPorDamas() <= 0.2 && it.espectador.sexo.toString() == Sexo.Femenino.toString()){
 				this.entradasCompradasPorDamas ++
 				it.descuentosAcumulados += calcularDescuento(it.butacas.first())
 			}
