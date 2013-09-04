@@ -12,6 +12,9 @@
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
+        <includes>
+        	<include>**/*.groovy</include>
+        </includes>
       </resource>
     </resources>
     <testResources>
@@ -20,6 +23,9 @@
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
+        <includes>
+        	<include>**/*.groovy</include>
+        </includes>
       </testResource>
     </testResources>
     <plugins>
