@@ -113,4 +113,10 @@ class Noche {
 		else
 			throw new ButacaNoEncontradaException()
 	}
+	
+	//PARA MOSTRAR LOS DATOS
+	@Override
+	public String toString() {
+		return 'Fecha '+this.fecha
+	}
 }

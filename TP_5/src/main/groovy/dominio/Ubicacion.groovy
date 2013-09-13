@@ -13,4 +13,9 @@ class Ubicacion {
 		return fila*3
 	}
 	
+	//PARA MOSTRAR LOS DATOS
+	@Override
+	public String toString() {
+		return this.sector+'-'+this.fila
+	}
 }

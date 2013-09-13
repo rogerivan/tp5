@@ -28,4 +28,9 @@ class Butaca {
 			throw new ContraseniaNoCoincideException()
 	}
 
+	//PARA MOSTRAR LOS DATOS
+	@Override
+	public String toString() {
+		return this.numeroButaca+'-'+this.ubicacion
+	}
 }

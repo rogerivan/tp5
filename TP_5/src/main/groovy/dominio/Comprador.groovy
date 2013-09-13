@@ -23,4 +23,9 @@ class Comprador {
 		this.compras << compra
 	}
 	
+	//PARA MOSTRAR LOS DATOS
+	@Override
+	public String toString() {
+		return this.nombre+' '+this.apellido
+	}
 }
