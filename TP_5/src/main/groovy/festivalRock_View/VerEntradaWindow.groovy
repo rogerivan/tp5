@@ -1,6 +1,6 @@
 package festivalRock_View
 
-import dominio.*
+import dominio.Entrada
 
 import java.awt.Color
 
