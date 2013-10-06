@@ -1,1 +1,4 @@
 /bin
+/.groovy
+/.settings
+/target
