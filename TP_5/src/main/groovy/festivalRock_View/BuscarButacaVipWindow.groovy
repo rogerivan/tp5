@@ -1,12 +1,15 @@
 package festivalRock_View
 
-import dominio.Planificacion
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.windows.Dialog
+import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.lacar.ui.model.Action
 
-class BuscarButacaVipWindow  extends Dialog<Planificacion>{
+import dominio.Planificacion
+
+class BuscarButacaVipWindow  extends SimpleWindow<Planificacion>{
 	
 	BuscarButacaVipWindow(WindowOwner owner) {
 		super(owner, new Planificacion())
@@ -18,7 +21,16 @@ class BuscarButacaVipWindow  extends Dialog<Planificacion>{
 		mainPanel.with {
 			title = "Buscador de Butacas Vip"
 			layout = new HorizontalLayout()
+			new Button(mainPanel)
+			.setCaption("Volver")
+			.onClick({this.close()} as Action)
 		}
+		
+	}
+
+	@Override
+	protected void addActions(Panel actionsPanel) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -27,4 +39,5 @@ class BuscarButacaVipWindow  extends Dialog<Planificacion>{
 		// TODO Auto-generated method stub
 		
 	}
+
 }
