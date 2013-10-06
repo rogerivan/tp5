@@ -1,8 +1,11 @@
 package dominio
 
+import org.uqbar.commons.utils.Observable;
+
 import excepciones.ButacaNoEncontradaException
 
-class Planificacion {
+
+@Observable class Planificacion {
 	
 	def nochesConcierto = [] as Set
 	def descuentosAplicables = [] as Set
@@ -15,6 +18,19 @@ class Planificacion {
 		nochesConcierto << noche
 	}
 	
+	def butacasVip(){
+		def butacasVip = [] as Set
+		Noche noche = this.nochesConcierto.first()
+		noche.butacas.each {
+			if(this.buscarButacaEnTodasLasNoches(it)){
+				butacasVip << it
+				
+			}
+			
+		}
+		return butacasVip
+	}
+		
 	/*
 	 * Metodos butaca
 	 */

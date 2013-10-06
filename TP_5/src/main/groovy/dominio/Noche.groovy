@@ -1,5 +1,7 @@
 package dominio
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import excepciones.ButacaNoEncontradaException;
 import excepciones.ContraseniaNoEncontradaException;
 import groovy.transform.TupleConstructor;
@@ -20,6 +22,10 @@ class Noche {
 		this.bandas.addAll(bandas)
 	}
 
+	def getPrimerButacaDisponible(){
+		return this.butacas.first()
+	}
+	
 	/*
 	 Metodos de butacas no reservadas
 	 */
